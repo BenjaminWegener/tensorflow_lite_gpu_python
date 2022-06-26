@@ -1,4 +1,3 @@
-```
 #!/bin/bash
 
 echo -e "\e[1;32;49m
@@ -86,4 +85,3 @@ sudo mkdir -p ~/lib/tf_${TENSORFLOW_VER}
 sudo cp bazel-bin/tensorflow/lite/libtensorflowlite.so ~/lib/tf_${TENSORFLOW_VER}
 sudo cp bazel-bin/tensorflow/lite/delegates/gpu/libtensorflowlite_gpu_delegate.so ~/lib/tf_${TENSORFLOW_VER}
 sudo chown -R $user: ~/lib/tf_${TENSORFLOW_VER}
-```
