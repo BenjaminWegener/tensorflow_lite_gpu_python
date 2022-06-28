@@ -53,10 +53,13 @@
         argument, for returning both dataset splits at once, as a tuple.
     *   Added `tf.keras.utils.split_dataset` utility to split a `Dataset` object
         or a list/tuple of arrays into two `Dataset` objects (e.g. train/test).
-    *   Added step granualarity to `BackupAndRestore` callback for handling
+    *   Added step granularity to `BackupAndRestore` callback for handling
         distributed training failures & restarts. The training state can now be
         restored at the exact epoch and step at which it was previously saved
         before failing.
+    *   Added [`tf.keras.dtensor.experimental.optimizers.AdamW`](https://www.tensorflow.org/api_docs/python/tf/keras/dtensor/experimental/optimizers/AdamW). This optimizer
+        is similar as the existing [`keras.optimizers.experimental.AdamW`](https://www.tensorflow.org/api_docs/python/tf/keras/optimizers/experimental/AdamW), and
+        works in the DTensor training use case.
 
 *   `tf.data`:
 

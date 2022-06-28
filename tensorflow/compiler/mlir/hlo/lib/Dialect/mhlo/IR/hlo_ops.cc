@@ -1915,7 +1915,7 @@ LogicalResult isSpatialDimensionsValid(ConvOp op) {
 
   const auto hasDuplicates = [](SmallVector<int64_t>& dnums) {
     std::sort(dnums.begin(), dnums.end());
-    auto last = std::unique(dnums.begin(), dnums.end());
+    auto* last = std::unique(dnums.begin(), dnums.end());
     return last != dnums.end();
   };
 
@@ -3011,7 +3011,7 @@ class DynamicBroadcastInDimOpNotActuallyDynamic
                                 PatternRewriter& rewriter) const override {
     auto type = op.getType().dyn_cast<RankedTensorType>();
     auto operandType = op.operand().getType().dyn_cast<RankedTensorType>();
-    auto outputDimOp = op.output_dimensions().getDefiningOp();
+    auto* outputDimOp = op.output_dimensions().getDefiningOp();
     if (!type || !operandType || !operandType.hasStaticShape()) {
       return rewriter.notifyMatchFailure(op, "requires operand static shape");
     }
@@ -3109,18 +3109,22 @@ LogicalResult ClampOp::verify() {
   auto minType = min().getType().cast<RankedTensorType>();
 
   auto minShape = minType.getShape();
-  if (minShape != operandShape && minType.getRank() != 0) {
+  if (failed(verifyCompatibleShape(minType, operandType)) &&
+      minType.getRank() != 0) {
     return emitOpError(llvm::formatv(
-        "min shape [{0}] is not scalar and does not match operand shape [{1}]",
+        "min shape [{0}] is not scalar and is not compatible to operand shape "
+        "[{1}]",
         llvm::make_range(minShape.begin(), minShape.end()),
         llvm::make_range(operandShape.begin(), operandShape.end())));
   }
 
   auto maxType = max().getType().cast<RankedTensorType>();
   auto maxShape = maxType.getShape();
-  if (maxShape != operandShape && maxType.getRank() != 0) {
+  if (failed(verifyCompatibleShape(maxType, operandType)) &&
+      maxType.getRank() != 0) {
     return emitOpError(llvm::formatv(
-        "max shape [{0}] is not scalar and does not match operand shape [{1}]",
+        "max shape [{0}] is not scalar and is not compatible to operand shape "
+        "[{1}]",
         llvm::make_range(maxShape.begin(), maxShape.end()),
         llvm::make_range(operandShape.begin(), operandShape.end())));
   }
@@ -3771,7 +3775,8 @@ LogicalResult DynamicSliceOp::verify() {
     if (slice_size < 0) {
       return emitOpError() << "has negative size index to dynamic slice: "
                            << slice_size;
-    } else if (!operandType.isDynamicDim(i)) {
+    }
+    if (!operandType.isDynamicDim(i)) {
       int64_t dim_size = operandType.getDimSize(i);
       if (slice_size > dim_size) {
         return emitOpError() << "has slice size " << slice_size
@@ -5960,7 +5965,8 @@ bool isSplatZero(SplatElementsAttr attr) {
   if (!attr) return false;
   if (attr.getElementType().isa<FloatType>()) {
     return attr.getSplatValue<APFloat>().isZero();
-  } else if (attr.getElementType().isa<IntegerType>()) {
+  }
+  if (attr.getElementType().isa<IntegerType>()) {
     return attr.getSplatValue<APInt>().isZero();
   } else {
     return false;
@@ -5985,7 +5991,8 @@ bool isSplatOne(SplatElementsAttr attr) {
   if (!attr) return false;
   if (attr.getElementType().isa<FloatType>()) {
     return attr.getSplatValue<APFloat>().convertToDouble() == 1.0;
-  } else if (attr.getElementType().isa<IntegerType>()) {
+  }
+  if (attr.getElementType().isa<IntegerType>()) {
     return attr.getSplatValue<APInt>().getSExtValue() == 1;
   } else {
     return false;
@@ -7108,7 +7115,7 @@ LogicalResult validateScatterDimensionNumbers(
     ScatterDimensionNumbersAttr dimNumbers, Location loc) {
   const auto hasDuplicates = [](SmallVector<int64_t>& nums) {
     if (!llvm::is_sorted(nums)) std::sort(nums.begin(), nums.end());
-    auto last = std::unique(nums.begin(), nums.end());
+    auto* last = std::unique(nums.begin(), nums.end());
     return last != nums.end();
   };
 
