@@ -19,6 +19,10 @@ limitations under the License.
 #include <memory>
 #include <thread>  // NOLINT(build/c++11)
 #include <vector>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <iostream>
 
 #include "absl/container/flat_hash_map.h"
 #include "absl/container/flat_hash_set.h"
@@ -41,22 +45,13 @@ limitations under the License.
 #include "tensorflow/lite/kernels/kernel_util.h"
 #include "tensorflow/lite/minimal_logging.h"
 
-//change
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-#include <iostream>
-
-#include "tensorflow/lite/c/common.h"
-//change end
-
 #ifndef CL_DELEGATE_NO_GL
 #include "tensorflow/lite/delegates/gpu/gl/api2.h"
 #endif
 
 namespace tflite {
 namespace gpu {
-//namespace {
+
 
 using delegates::Serialization;
 using delegates::SerializationParams;
