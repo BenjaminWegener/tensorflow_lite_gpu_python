@@ -14,7 +14,7 @@ installing dependencies...
 \e[0m"
 sudo apt update
 sudo apt install -y apt-transport-https wget curl gnupg cmake build-essential git unzip
-sudo apt install -y mesa-common-dev libegl1-mesa-dev libgles2-mesa-dev
+sudo apt install -y mesa-common-dev libegl1-mesa-dev libgles2-mesa-dev ocl-icd-opencl-dev
 sudo apt install -y python python3 python3-pip
 pip3 install numpy
 
