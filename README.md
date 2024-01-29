@@ -7,11 +7,11 @@ in your local shell run:
 ```
 sudo apt update
 sudo apt install python3-pybind11 python3-pip wget curl cmake git sed -y
-git clone https://tensorflow/tensorflow
-sed -e '/-DCMAKE_CXX_FLAGS="${BUILD_FLAGS}"/{s//-DCMAKE_CXX_FLAGS="${BUILD_FLAGS}" -DTFLITE_ENABLE_GPU=ON/;:a' -e '$!N;$!ba' -e '}' tensorflow/lite/tools/pip_package/build_pip_package_with_cmake.sh
-sed -e '/-j ${BUILD_NUM_JOBS}/{s//-j1/;:a' -e '$!N;$!ba' -e '}' tensorflow/lite/tools/pip_package/build_pip_package_with_cmake.sh
-PYTHON=python3 tensorflow/lite/tools/pip_package/build_pip_package_with_cmake.sh native
-pip3 install tensorflow/lite/tools/pip_package/gen/tflite_pip/python3/dist/tflite_runtime*.whl
+git clone --single-branch --branch master https://tensorflow/tensorflow
+sed -e '/-DCMAKE_CXX_FLAGS="${BUILD_FLAGS}"/{s//-DCMAKE_CXX_FLAGS="${BUILD_FLAGS}" -DTFLITE_ENABLE_GPU=ON/;:a' -e '$!N;$!ba' -e '}' tensorflow/tensorflow/lite/tools/pip_package/build_pip_package_with_cmake.sh
+sed -e '/-j ${BUILD_NUM_JOBS}/{s//-j1/;:a' -e '$!N;$!ba' -e '}' tensorflow/tensorflow/lite/tools/pip_package/build_pip_package_with_cmake.sh
+PYTHON=python3 tensorflow/tensorflow/lite/tools/pip_package/build_pip_package_with_cmake.sh native
+pip3 install tensorflow/tensorflow/lite/tools/pip_package/gen/tflite_pip/python3/dist/tflite_runtime*.whl
 ```
 
 ---
