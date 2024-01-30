@@ -2,6 +2,10 @@ this is a tutorial to compile a tflite_runtime python wheel with enabled gpu for
 
 enables gpu in build script and sets cpu cores for compilation to 1 to prevent errors
 
+compile in the cloud: https://colab.research.google.com/github/BenjaminWegener/tensorflow_lite_gpu_python/blob/2024_tflite_gpu_python_wheel/tflite_runtime_gpu.ipynb
+
+OR
+
 in your local shell run:
 
 ```
