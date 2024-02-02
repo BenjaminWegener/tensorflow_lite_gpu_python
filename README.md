@@ -6,7 +6,7 @@ sudo apt update && sudo apt install jupyter python3-pip unzip wget
 wget -O bazel https://github.com/bazelbuild/bazel/releases/download/7.0.2/bazel-7.0.2-linux-arm64 
 chmod +x bazel; ./bazel; sudo cp bazel /usr/bin
 wget https://codeload.github.com/tensorflow/tensorflow/zip/refs/heads/master
-unzip master; cd tensorflow-master; ./configure
+unzip master; cd tensorflow-master; ./configure; bazel build -c opt --copt=-DCL_DELEGATE_NO_GL --copt=-DMESA_EGL_NO_X11_HEADERS=1 tensorflow/lite/delegates/gpu:libtensorflowlite_gpu_delegate.so
 pip3 install tensorflow --break-system-packages
 wget https://raw.githubusercontent.com/BenjaminWegener/tensorflow_lite_gpu_python/2024_tflite_gpu_python_wheel/tflite_complete_on_device_training_python_gpu.ipynb
 jupyter notebook --ip='*' --NotebookApp.token='' --NotebookApp.password=''
