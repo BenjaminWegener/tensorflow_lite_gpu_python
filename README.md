@@ -1,4 +1,6 @@
-a jupyter notebook to compile a tflite gpu delegate for debian aarch64 (raspberry / chromebook etc)
+a jupyter notebook to compile a tflite gpu delegate for debian aarch64 (raspberry / chromebook etc) and run a comlete end-to-end example training
+
+based on https://colab.research.google.com/github/tensorflow/tensorflow/blob/master/tensorflow/lite/g3doc/examples/on_device_training/overview.ipynb
 
 on a clean debian system use:
 ```
