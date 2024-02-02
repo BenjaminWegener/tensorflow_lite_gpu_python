@@ -1,8 +1,13 @@
-a jupyter notebook to compile a tflite_runtime python wheel with enabled gpu for debian aarch64 (raspberry / chromebook etc)
+a jupyter notebook to compile a tflite gpu delegate for debian aarch64 (raspberry / chromebook etc)
 
-enables gpu in build script and sets cpu cores for compilation to 1 to prevent errors
+on a clean debian system use:
+```
+sudo apt update && sudo apt install jupyter wget
+wget https://raw.githubusercontent.com/BenjaminWegener/tensorflow_lite_gpu_python/2024_tflite_gpu_python_wheel/tflite_complete_on_device_training_python_gpu.ipynb
+jupyter notebook --ip='*' --NotebookApp.token='' --NotebookApp.password=''
+```
 
-use the .ipynb to compile it on your system
+run the .ipynb in the opening browser
 
 ## License
 
