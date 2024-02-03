@@ -1404,7 +1404,8 @@ TfLiteDelegate* tflite_plugin_create_delegate(char** options_keys,
 void tflite_plugin_destroy_delegate(TfLiteDelegate* delegate) {
   delete GetDelegate(delegate);
 }
-}  // namespace extern
+}  // extern
+}  // namespace
 }  // namespace gpu
 }  // namespace tflite
 TfLiteGpuDelegateOptionsV2 TfLiteGpuDelegateOptionsV2Default() {
