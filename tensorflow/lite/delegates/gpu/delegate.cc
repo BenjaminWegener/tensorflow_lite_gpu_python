@@ -1408,21 +1408,6 @@ void tflite_plugin_destroy_delegate(TfLiteDelegate* delegate) {
 }  // namespace
 }  // namespace gpu
 }  // namespace tflite
-TfLiteGpuDelegateOptionsV2 TfLiteGpuDelegateOptionsV2Default() {
-  TfLiteGpuDelegateOptionsV2 options;
-  // set it to -1 to detect whether it was later adjusted.
-  options.is_precision_loss_allowed = -1;
-  options.inference_preference =
-      TFLITE_GPU_INFERENCE_PREFERENCE_FAST_SINGLE_ANSWER;
-  options.inference_priority1 = TFLITE_GPU_INFERENCE_PRIORITY_MAX_PRECISION;
-  options.inference_priority2 = TFLITE_GPU_INFERENCE_PRIORITY_AUTO;
-  options.inference_priority3 = TFLITE_GPU_INFERENCE_PRIORITY_AUTO;
-  options.experimental_flags = TFLITE_GPU_EXPERIMENTAL_FLAGS_ENABLE_QUANT;
-  options.max_delegated_partitions = 1;
-  options.model_token = nullptr;
-  options.serialization_dir = nullptr;
-  return options;
-}
 
 TfLiteDelegate* TfLiteGpuDelegateV2Create(
     const TfLiteGpuDelegateOptionsV2* options) {
