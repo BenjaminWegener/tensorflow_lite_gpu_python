@@ -5,8 +5,8 @@ load(
 )
 load("//tensorflow/lite:special_rules.bzl", "tflite_extra_gles_deps", "tflite_portable_test_suite")
 load("//tensorflow/lite/delegates/gpu:build_defs.bzl", "gpu_delegate_linkopts")
-load("@build_bazel_rules_apple//apple:ios.bzl", "ios_static_framework")
-load("@build_bazel_rules_apple//apple:macos.bzl", "macos_dylib")
+#load("@build_bazel_rules_apple//apple:ios.bzl", "ios_static_framework")
+#load("@build_bazel_rules_apple//apple:macos.bzl", "macos_dylib")
 
 package(
     # copybara:uncomment default_applicable_licenses = ["//tensorflow:license"],
@@ -154,35 +154,35 @@ cc_binary(
 )
 
 # bazel build -c opt --cpu ios_arm64 --copt -Os --copt -DTFLITE_GPU_BINARY_RELEASE --copt -fvisibility=hidden --linkopt -s --strip always --cxxopt=-std=c++14 :libtensorflowlite_gpu_metal --apple_platform_type=ios
-ios_static_framework(
-    name = "tensorflow_lite_gpu_framework",
-    hdrs = [
-        "metal_delegate.h",
-        "metal_delegate_internal.h",
-    ],
-    minimum_os_version = "12.0",
-    deps = [":metal_delegate"],
-)
+#ios_static_framework(
+#    name = "tensorflow_lite_gpu_framework",
+#    hdrs = [
+#        "metal_delegate.h",
+#        "metal_delegate_internal.h",
+#    ],
+#    minimum_os_version = "12.0",
+#    deps = [":metal_delegate"],
+#)
 
 # Note: Support for MacOS is best-effort at the moment.
 # bazel build -c opt --copt -Os --copt -DTFLITE_GPU_BINARY_RELEASE --copt -fvisibility=hidden --linkopt -s --strip always --cxxopt=-std=c++14 :tensorflow_lite_gpu_dylib --apple_platform_type=macos
-macos_dylib(
-    name = "tensorflow_lite_gpu_dylib",
-    linkopts = [
-        "-all_load",
-        "-dead_strip",
-    ],
-    minimum_os_version = "12.0",
-    tags = [
-        "manual",
-        "nobuilder",
-        "notap",
-    ],
-    deps = [
-        ":metal_delegate",
-        ":metal_delegate_internal",
-    ],
-)
+#macos_dylib(
+#    name = "tensorflow_lite_gpu_dylib",
+#    linkopts = [
+#        "-all_load",
+#        "-dead_strip",
+#    ],
+#    minimum_os_version = "12.0",
+#    tags = [
+#        "manual",
+#        "nobuilder",
+#        "notap",
+#    ],
+#    deps = [
+#        ":metal_delegate",
+#        ":metal_delegate_internal",
+#    ],
+#)
 
 cc_library(
     name = "api",
